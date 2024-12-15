@@ -1,0 +1,70 @@
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+#root {
+  isolation: isolate;
+}
+
+.youtube-list{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 25px;
+  padding: 25px;
+}
+.youtube-img{
+  height: 250px;
+  margin-bottom: 15px;
+}
+.youtube-img img{
+  width: 100%;
+  height: 100% ;
+  object-fit: cover;
+}
+.youtube-footer{
+  display: flex;
+  align-items: flex-start;
+  gap: 0 20;
+}
+.youtube-avatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 100rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.youtube-title{
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.youtube-author{
+  font-size: 14px;
+  color: #999;
+  font-weight: 300;
+}
