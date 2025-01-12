@@ -12,12 +12,24 @@ import React, { useEffect, useRef, useState } from "react";
 import Input from "./components/youtube/Input";
 import Dropdown from "./components/youtube/Dropdown";
 import Blog from "./components/youtube/Blog";
+import { use } from "react";
+import useClickOutSide from "./components/hooks/useClickOutSide";
+import SidebarMenu from "./components/youtube/SideBarMenu";
+import MovieSearchApp from "./components/youtube/MovieSearchApp";
 
 function App() {
- 
+  const { show, setShow, nodeRef } = useClickOutSide("span");
   return (
     <div>
-      <Blog></Blog>
+      {/* <span
+        onClick={() => setShow(true)}
+        className="inline-block m-3 p-3 rounded-lg text-white bg-green-400 cursor-pointer"
+      >
+        Show menu
+      </span>
+      <SidebarMenu show={show} ref={nodeRef} ></SidebarMenu>
+      <Dropdown></Dropdown> */}
+      <MovieSearchApp></MovieSearchApp>
     </div>
   );
 }

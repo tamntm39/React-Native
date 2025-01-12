@@ -1,37 +1,51 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-// import lodash from "lodash"; 
+// import lodash from "lodash";
 
 const HackerNews = () => {
   const [hits, setHits] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [url, setUrl] = useState(`https://hn.algolia.com/api/v1/search?query=${query}`);
+  const [url, setUrl] = useState(
+    `https://hn.algolia.com/api/v1/search?query=${query}`
+  );
+
+  const isMounted = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleFetchData = useRef({});
 
-//   const isMounted = useRef(true);
+  //   const isMounted = useRef(true);
 
-//   useEffect(() => {
-//     return () => {
-//       isMounted.current = false;
-//     };
-//   }, []);
+  //   useEffect(() => {
+  //     return () => {
+  //       isMounted.current = false;
+  //     };
+  //   }, []);
 
-//   useEffect(() => {
-//     setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`);
-//   }, [query]);
+  //   useEffect(() => {
+  //     setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`);
+  //   }, [query]);
 
-//   const handleUpdateQuery = lodash.debounce((e) => {
-//     setQuery(e.target.value);
-//   }, 1000);
+  //   const handleUpdateQuery = lodash.debounce((e) => {
+  //     setQuery(e.target.value);
+  //   }, 1000);
 
   handleFetchData.current = async () => {
     setLoading(true);
     try {
       const response = await axios.get(url);
+      setTimeout(() => {
+        if (isMounted.current) {
           setHits(response.data?.hits || []);
           setLoading(false);
+        }
+      }, 3000);
     } catch (error) {
       setLoading(false);
       setErrorMessage(`The error happened ${error}`);
@@ -50,10 +64,12 @@ const HackerNews = () => {
           className="border border-gray-200 p-5 block w-full rounded-md transition-all focus:border-blue-400"
           placeholder="Typing your keyword..."
           defaultValue={query}
-          onChange={(e) => setQuery(e.target.value)}  
+          onChange={(e) => setQuery(e.target.value)}
         />
         <button
-          onClick={() => setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)}
+          onClick={() =>
+            setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)
+          }
           className="bg-blue-500 text-white font-semibold p-5 rounded-md flex-shrink-0"
         >
           Fetching
